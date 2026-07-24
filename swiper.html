@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>活動照片影片成果展</title>
     
+    <!-- 引入 Swiper 的 CSS 樣式 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
@@ -12,17 +13,17 @@
             font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
             background-color: #f0f2f5;
             margin: 0;
-            padding: 0; /* 改為 0，讓橫幅可以貼緊最上方 */
+            padding: 0;
             display: flex;
-            flex-direction: column; /* 讓橫幅與主內容垂直排列 */
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
 
-        /* 💡 新增：卓越級榮譽橫幅樣式 */
+        /* 頂端卓越級榮譽橫幅 */
         .honor-banner {
             width: 100%;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* 典雅深藍漸層 */
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             color: #ffffff;
             text-align: center;
             padding: 18px 10px;
@@ -30,18 +31,17 @@
             font-weight: bold;
             letter-spacing: 2px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            border-bottom: 4px solid #d4af37; /* 金色下邊框，象徵卓越級榮譽 */
+            border-bottom: 4px solid #d4af37;
             box-sizing: border-box;
         }
 
-        /* 讓文字中的 (卓越級) 變成耀眼的金色 */
         .honor-banner span {
             color: #ffd700; 
             margin-left: 5px;
             text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
         }
 
-        /* 主內容容器調整 */
+        /* 主內容容器 */
         .container {
             width: 100%;
             max-width: 850px;
@@ -49,11 +49,11 @@
             padding: 25px;
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            margin: 30px 20px; /* 加上上下邊距，與橫幅保持舒適距離 */
+            margin: 30px 20px;
             box-sizing: border-box;
         }
 
-        /* 頁籤切換按鈕區域 */
+        /* 頁籤區域 */
         .tab-container {
             display: flex;
             gap: 10px;
@@ -65,8 +65,8 @@
         }
 
         .tab-btn {
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 10px 18px;
+            font-size: 15px;
             font-weight: bold;
             border: none;
             background: #e4e6eb;
@@ -81,7 +81,6 @@
             color: #fff;
         }
 
-        /* 精彩影片花絮按鈕 */
         .video-highlight-btn {
             background: #ff0000;
             color: #fff;
@@ -99,7 +98,6 @@
             100% { transform: scale(1); }
         }
 
-        /* 內容顯示/隱藏控制 */
         .content-section {
             display: none;
         }
@@ -108,7 +106,6 @@
             display: block;
         }
 
-        /* 播放器與輪播大小控制 */
         .media-box {
             width: 100%;
             height: 500px;
@@ -122,10 +119,17 @@
             height: 100%;
         }
 
+        .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
         .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; 
         }
 
         .swiper-slide iframe, .youtube-box iframe {
@@ -134,7 +138,6 @@
             border: none;
         }
 
-        /* Swiper 控制鈕優化 */
         .swiper-button-next, .swiper-button-prev {
             color: #fff;
             background: rgba(0, 0, 0, 0.6);
@@ -149,14 +152,16 @@
             background: #007bff !important;
         }
 
-        /* 手機板字體自動縮小，避免斷行 */
         @media (max-width: 600px) {
             .honor-banner {
                 font-size: 18px;
                 padding: 12px 5px;
             }
             .media-box {
-                height: 300px; /* 手機版高度縮小，比較好觀看 */
+                height: 320px;
+            }
+            .video-highlight-btn {
+                margin-left: 0;
             }
         }
     </style>
@@ -169,43 +174,98 @@
 
 <div class="container">
     
+    <!-- 項目切換選單 -->
     <div class="tab-container">
-        <button class="tab-btn active" onclick="switchTab('multiculture')">多元文化展</button>
+        <button class="tab-btn active" onclick="switchTab('english-corner')">英語角</button>
+        <button class="tab-btn" onclick="switchTab('multiculture')">多元文化展</button>
         <button class="tab-btn" onclick="switchTab('summit')">國際高峰會</button>
         <button class="tab-btn" onclick="switchTab('jphk')">日韓教育參訪</button>
         <button class="tab-btn video-highlight-btn" onclick="playRandomYouTube()">🎬 精彩影片花絮</button>
     </div>
 
-    <div id="multiculture" class="content-section active">
+    <!-- ==================== 項目一：英語角 (新增) ==================== -->
+    <div id="english-corner" class="content-section active">
+        <div class="media-box">
+            <div class="swiper swiper-english">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1tdyHWb15HNkAF7kc7hpI6i68pVkRa2N0&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1n5_H2P0R-DoYf4SWcCMMEfRMJbE-zRJT&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1wrfEtxCi0ZsGfac1pSNMPvXIGRBcVDrp&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1Qxjgx0Ozwj_37yEgPLoCWE5H94dn0KHt&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1Z06KWMb9ALDBzal-ya2qTU35SGEXz_Y9&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1NizFdeFxRVJT9rPSpCBEAW2IHgXafqTq&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1PVGez32zrBl5VkVUVjt9eqDMggmopb6G&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1mTQAG8ZXw9CGsW6-LlGI32OBaHcC1BO1&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1oSq_OZhoUOjq_5WG9phu6CIf_rw_eyYz&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=16bHSMt6G3G8L1WFONdVcqnC4t2KkGR0E&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1FL12v3EC8G_Hbu-03mdP7vfFyW9o5a6V&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1amOVreQSbfJHOXWwDjd-cjy-QATZ6VXr&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1jx8Difdv_55Sa7iLzaXHFXt5pB_tKtbP&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1dwr4GfxdwMs563TS1TPAAlVL6uBGj-p_&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1O7STOTWIjBJOzEfHY39MHYrVndAoNNIO&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1ov9FaUYqTxsd62w58bdOHZArHq5LxoBg&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1o-nE5wedv3g2UrmvSTvZHNWVHxU6WUrA&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1pYG7H0vmJYOJfw5U0mVnIkyn5rYeOM5L&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1qBd9xNYM515hbTPLWhlI7jFXAvzsblLn&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1ZG8jZPGwAsiz5l5yYbJ9eO_xwJdDi8GJ&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1_ZsTSiKcXjopVgvBhl6KXT9QcjYe7PAE&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1vk9ruvwHmfSn4gToru5Z8SyBFOK3dFZQ&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1xa_Na-jQVg9OZL2UKJ1V7wiQRPBRFRPe&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1gXcdSd5h01PRhmbjLm4JgCXPL8ccR3r4&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1P-cRna1JqrUvpOYAnbb_5eKGYtr9LGcE&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1xF4RFcVarOb5dBDfzUhOZh3lCyWOglBc&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1-VXrl85t2rHsi27MOagUbfdfKvNN1z_M&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1Xn74YJV-rSJNVPv9SyDXw31mSiCmGZoz&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1_3EW7FpBNdvpmB8tRpet0JC35hox-2e4&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1Ji5NUvXLJe7Yk55BeJ0RhgnWZLgrLw5f&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=11h_trVHr3R3QsUxOkvN5gS9OdioUT3Ze&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1FVTVtZhYCDalUZp9vGEwmK0IGCNXxPck&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1Av2-8l3JZ7gOmsPF1yDS5YAzsWQkkCnO&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1O6zayjv7A78ZXCGvzzLdKUPCdSwsvqbf&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1BxRK_OHXO_-PDc0TjPQqEbXPSIcQ0uv-&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1UFPDjQMc5PlSCpl93rSKATuuDhja7_GU&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1FydEnLkE6KwFgA7L64XHlLijpW_T7SCb&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1OcWfN6QyBTo-dN_0hvzhQvVhIwtrizrb&sz=w1200" alt="英語角照片"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1YNMVmb0TXra2yVHmjNIfrq1hmM_2MfNK&sz=w1200" alt="英語角照片"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 項目二：多元文化展 (更新連結) ==================== -->
+    <div id="multiculture" class="content-section">
         <div class="media-box">
             <div class="swiper swiper-multi">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide"><iframe src="https://drive.google.com/file/d/1Uk_1CsIIrC-GMaAsS5LEyasvOiX37Wo7/preview"></iframe></div>
                     <div class="swiper-slide"><iframe src="https://drive.google.com/file/d/1Iu44J9ezSnZGv7tqNTqCCMCBl9U5yJ0K/preview"></iframe></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1XZ3gxQBGM1FA2cGS4B3uCoDWiphlEqpt"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1iPa6oh6hdhOTast-1ZZWvu7UNYRj2ucm"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1fZdXaf0fpe51ZeJxjfWvu2t6gDj-8w-Q&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1CvCDwxORhcw4L9fAsc-clTVaGk2Vy-uJ&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1o_UMnvLOz0fODCNI3Nav__O-ghLucnNK&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1WICVBqS-AloU3aXLxEfj-0whMe0RTOrG&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1H_MQcvOqz7Zzx1b_DzXfjhpyx1vHmUgR&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1csOS5JLcRQsqRYII2__RvL7Yy2w-DKfP&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1S2nMp0ZTzWjuh7AIsSHWcBxm3s6u3eCh&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1eCuNOxfUE9g3s9wJC2RnzJz2Fkg-Pzw-&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1TSO-_lgS-vlaZUONDZ4j_ghlitUu9d5x&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1ulndLNpwZxWenVYLxQbUIwM7aCclM8Fc&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1-7bEx00S9FskIywi-QckX0-bwT_bAbwf&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1KzG0OM2jLIPjZpQrvEJXFEC2MD3yKh9h&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1brGor_zM-R7RYOBrY9eDoZvE3LivuIRG&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=17qGU2QnFxgim5yT_YD3t-gjEjLT35bnT&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1iPa6oh6hdhOTast-1ZZWvu7UNYRj2ucm&sz=w1200"></div>
                     <div class="swiper-slide"><iframe src="https://drive.google.com/file/d/10u44kLDMlCDrcMEgXWXO1SxNb_BQs9kN/preview"></iframe></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1XZ3gxQBGM1FA2cGS4B3uCoDWiphlEqpt&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1D88FQnRBSCWJyzba3idyvdRpYHLwRDda&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1wC_0OPsoJPkF6qyg2WcLeUYRj4GUxwn9&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1BBzhCJQushoRayy5X4ZCVGinLciV-rei&sz=w1200"></div>
                     <div class="swiper-slide"><iframe src="https://drive.google.com/file/d/1j7Y1248kh1cCpXC-ZMtbavB7y_vWoAG8/preview"></iframe></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1rFW4_hxg_FVBd5Ed9OwC_EC60ahMrafh&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1WkKLYJrD1Tru9G5BUZe-fpO7A38oikA2&sz=w1200"></div>
                     <div class="swiper-slide"><iframe src="https://drive.google.com/file/d/1STTCy1A6kPXCWJgPHSLB-cwlbleCQMSa/preview"></iframe></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1rFW4_hxg_FVBd5Ed9OwC_EC60ahMrafh"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1WkKLYJrD1Tru9G5BUZe-fpO7A38oikA2"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1BBzhCJQushoRayy5X4ZCVGinLciV-rei"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1wC_0OPsoJPkF6qyg2WcLeUYRj4GUxwn9"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1D88FQnRBSCWJyzba3idyvdRpYHLwRDda"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/17qGU2QnFxgim5yT_YD3t-gjEjLT35bnT"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1brGor_zM-R7RYOBrY9eDoZvE3LivuIRG"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1-7bEx00S9FskIywi-QckX0-bwT_bAbwf"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1ulndLNpwZxWenVYLxQbUIwM7aCclM8Fc"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1KzG0OM2jLIPjZpQrvEJXFEC2MD3yKh9h"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1TSO-_lgS-vlaZUONDZ4j_ghlitUu9d5x"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1eCuNOxfUE9g3s9wJC2RnzJz2Fkg-Pzw-"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1csOS5JLcRQsqRYII2__RvL7Yy2w-DKfP"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1H_MQcvOqz7Zzx1b_DzXfjhpyx1vHmUgR"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1S2nMp0ZTzWjuh7AIsSHWcBxm3s6u3eCh"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1WICVBqS-AloU3aXLxEfj-0whMe0RTOrG"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1CvCDwxORhcw4L9fAsc-clTVaGk2Vy-uJ"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1fZdXaf0fpe51ZeJxjfWvu2t6gDj-8w-Q"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1o_UMnvLOz0fODCNI3Nav__O-ghLucnNK"></div>
                 </div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-prev"></div>
@@ -214,60 +274,62 @@
         </div>
     </div>
 
+    <!-- ==================== 項目三：國際高峰會 ==================== -->
     <div id="summit" class="content-section">
         <div class="media-box">
             <div class="swiper swiper-summit">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><iframe src="https://drive.google.com/file/d/1DBICNeGsqsTeutA0gbcNse1_9ClMKDmS/preview"></iframe></div>
-                    <div class="swiper-slide"><iframe src="https://drive.google.com/file/d/1Kw4zITjmNVQ3nlYKNmlxopx9TIpCRVl8/preview"></iframe></div>
-                    <div class="swiper-slide"><iframe src="https://drive.google.com/file/d/1yGhoJh5lRTSsLDPPF3Anr9QIWISFIx4J/preview"></iframe></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/19eWyNwMy5_rQSeVbETqWX3ARiroZiKkw"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/14V9265_xRJ1bTsrPsU1OXZUmBaZTun92"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1bHblUVp3WuhMrNwSG9mTQk5j_V_QuX_f"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/196N5h2zrO0ZpE5Vqc_ZZqU0r07YMVzp5"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1lsjNpU650-myLAizUS6DBOC387dV_AnO"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/17M_r-5uj1eJW9mdxhCiiZsw7MA-Yk_Vu"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1nnjMkBV9Rn9pc215gnpCWQQJxf-SZx3g"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1oWh3H8wMl1scJMhEf4ak8yZquGeTUrpi"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1r0L4FTtWCMlHFz0kjg76RhI8VlKQoyeb"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1XitOsIHdU0hxiDHC56RUGaYuB_yfgAaD"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1LlDWaaJ2BlKvRW700p2iKLEHUsJU80Kd"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1mTcfuDOhRF-2ezQ-MELdH-Tg_inb6vs1"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1uzAWo_i8pbVpUPvlXFRHEIp6BlqV8sKe"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/11UmAgSVLpOKkG3KWuSQNxhtnaMhekbxB"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/163EnJ4uRHMwff3tUMBqM5cysqPUhhkqc"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1BhLLkzkpgBJjFwejOHI6yI6CITSv1sgd"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/18RvPlneoTk-g8-hyypMd-CNgJvHjI8yh"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1uy-1_BrKdPUGnOCMc8AuDUDM7fQJe_og"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1A79sHpZzGdOzymBB87H0-qvG0fpvSdnd"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1047dzcmVtdw34d0qIPsLIgkEtaaEvW_-"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1vehWqAXWlb1UC3mHfDA-zXmSo54l-LGF"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/12fY3nyJU9zkIXiqMu3bYb--3UIdmSf3C"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1wZ1EHt_aANuG3n511uJAx2An6gUBQcg8"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1qBLHmgBMnUzPAGd-Ls1zAt-X_c2_WD3E"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1EzJbsXNstmRZn4Z7k3Z2dK70T4yCkDSq"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1fv19f40yUFepEWRWNr_LSdzOQsRQlS-y"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1cKOfiy1c8YCMtX77Yl8shFToEF3Kv1lR"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1KkYPkxDi7Bljot-ZohmsjhGeuymI6pfz"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1pTI2WcQoo-ZXGHdeDe1uqinXgz77f4Rc"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1jakHE8wLbCWQfS28_5Sw5CsakAneUlZq"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1Fjb4UnZ0h5-yPjpKnFCTV7o0KOvlD0zb"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1yPgSOq2i_Slpl69dARIVImxqO0etKwc"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1NYAGuUMGawcZl8_yRzJ6dC6CTSDswTYN"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1DEEt6mtWw6HCDEkJupLqp8yrejAJes_S"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1Gs4__RcahO321QNCx6D_sclARItEknS1"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1yhb_E9-pa3IXoM4fgvNevbeCc1k0n1Up"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1bZn__ffCNbGj8JupZXUP50qewLWfQ7E-"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1G632TcYGNF267d_Npoh6wQqNouKp8z8-"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1IZDwYXbVyLmwlbd1Bf6ZBeC3PotuZrrl"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/12bbJHBYoapStJ4inmxmUVm3pajajW2gh"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1Nho0hw35p3BM3EK5WnVHQgdHv7U1myAc"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1kx3n3VPlf4CwX-oaviOpSDyOBRNOeH5Y"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1E0bW8xLVCacfFi4C8A-uySqkgzrARHYA"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/19owfhtHXtScfQOXQ5tB31vnTB7tvKte_"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1bpR6TVSvYkGpUppJoeI3JDgsp8lQZ0fu"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1pO1ROKBheOyqpe5XdtKo6oAPeDk3U2Z4"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1_zxhAMTfgCJZOAAizm4Y8fIYZNplM_Zd"></div>
+                    <!-- 💡 若圖片放在網站同一資料夾，請使用檔名： -->
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0309戶外生態踏查（滿月圓茶廠）_260529_1.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0310Quick Sketch 素描_260529_8.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0310Quick Sketch 素描_260529_7.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0310Quick Sketch 素描_260529_6.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0310Quick Sketch 素描_260529_5.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0310Quick Sketch 素描_260529_4.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0310Quick Sketch 素描_260529_3.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0310Quick Sketch 素描_260529_2.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0310Quick Sketch 素描_260529_1.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-keynote and presentations_260529_4.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-keynote and presentations_260529_3.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-keynote and presentations_260529_2.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-keynote and presentations_260529_1.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_20250307 國際課程高峰會_260529_7.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_20250307 國際課程高峰會_260529_6.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_20250307 國際課程高峰會_260529_5.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_20250307 國際課程高峰會_260529_4.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_20250307 國際課程高峰會_260529_3.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_20250307 國際課程高峰會_260529_2.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_20250307 國際課程高峰會_260529_1.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0308庭園工作坊_260529_9.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0308庭園工作坊_260529_8.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0308庭園工作坊_260529_7.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0308庭園工作坊_260529_6.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0308庭園工作坊_260529_5.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0308庭園工作坊_260529_4.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0308庭園工作坊_260529_3.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0308庭園工作坊_260529_2.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2025高峰會-0308庭園工作坊_260529_1.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_34.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_33.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_32.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_31.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_30.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_29.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_28.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_27.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_26.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_25.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_24.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_23.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_22.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_21.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_20.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_19.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_18.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_17.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_16.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_15.jpg" alt="高峰會照片"></div>
+                    <div class="swiper-slide"><img src="LINE_ALBUM_2026國際學生高峰會_260529_14.jpg" alt="高峰會照片"></div>
                 </div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-prev"></div>
@@ -276,23 +338,24 @@
         </div>
     </div>
 
+    <!-- ==================== 項目四：日韓教育參訪 ==================== -->
     <div id="jphk" class="content-section">
         <div class="media-box">
             <div class="swiper swiper-jphk">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide"><iframe src="https://drive.google.com/file/d/1eSAmECplj41awX6xBzx8nkeJXCSoXYxf/preview"></iframe></div>
                     <div class="swiper-slide"><iframe src="https://drive.google.com/file/d/1zKeufn2MSqDq_eswcTk4Mc_xIxqlix1F/preview"></iframe></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1xclMUT1EzusL659RATlSG1NqjkdxDDWW"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1uS-O4slDaHOwBKBI7PQM61Dn_FbxkwS5"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1hq3ZIBRtHhv0atT8lqXzpx9ZFn64v7bB"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1XWiOIx425XsS0rf3LwZUZpEjRWQPxs3g"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1T9_19gkYV-kv2IcEvgrXpPqC0E-j_XQh"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1OYDqBenixDKinG04jzkWl0LRJed3lMx9"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1D3ZsQOZMa65XjIW8EuGp-bXGVuyFN4kC"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1i2x5l6nSKANUcBT_Z4wvuppNwIjGJ-iX"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1XgxW4MCBbiFJ0pk2tUjrVc5KSZRDSMDE"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/1nhUo9UTXcmW2hWNLzT9J1VkoDM3VX384"></div>
-                    <div class="swiper-slide"><img src="https://lh3.googleusercontent.com/d/11QJnwxBmGmDbzTft2jPOUt2w9MnkXtg5"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1xclMUT1EzusL659RATlSG1NqjkdxDDWW&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1uS-O4slDaHOwBKBI7PQM61Dn_FbxkwS5&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1hq3ZIBRtHhv0atT8lqXzpx9ZFn64v7bB&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1XWiOIx425XsS0rf3LwZUZpEjRWQPxs3g&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1T9_19gkYV-kv2IcEvgrXpPqC0E-j_XQh&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1OYDqBenixDKinG04jzkWl0LRJed3lMx9&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1D3ZsQOZMa65XjIW8EuGp-bXGVuyFN4kC&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1i2x5l6nSKANUcBT_Z4wvuppNwIjGJ-iX&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1XgxW4MCBbiFJ0pk2tUjrVc5KSZRDSMDE&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=1nhUo9UTXcmW2hWNLzT9J1VkoDM3VX384&sz=w1200"></div>
+                    <div class="swiper-slide"><img src="https://drive.google.com/thumbnail?id=11QJnwxBmGmDbzTft2jPOUt2w9MnkXtg5&sz=w1200"></div>
                 </div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-prev"></div>
@@ -301,18 +364,27 @@
         </div>
     </div>
 
+    <!-- ==================== 項目五：YouTube 精彩花絮播放區 ==================== -->
     <div id="youtube-section" class="content-section">
         <div class="media-box youtube-box" id="youtubePlayerContainer"></div>
     </div>
 
 </div>
 
+<!-- 引入 Swiper 的 JavaScript 核心檔案 -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
     const swipers = {};
 
     // 初始化所有 Swiper 輪播
+    swipers['english-corner'] = new Swiper('.swiper-english', {
+        loop: true, speed: 600,
+        autoplay: { delay: 5000, disableOnInteraction: true },
+        pagination: { el: '.swiper-english .swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-english .swiper-button-next', prevEl: '.swiper-english .swiper-button-prev' }
+    });
+
     swipers['multiculture'] = new Swiper('.swiper-multi', {
         loop: true, speed: 600,
         autoplay: { delay: 5000, disableOnInteraction: true },
